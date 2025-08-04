@@ -29,7 +29,7 @@ export default function HomePage() {
               Monitor real-time telemetry data from active drone fleet including battery status, 
               GPS tracking, environmental sensors, and mission progress.
             </p>
-            <Link href="/track/dashboard">
+            <Link href="/dashboard">
               <Button variant={'outline'} className="w-full cursor-pointer">Access Dashboard</Button>
             </Link>
           </CardContent>
@@ -47,7 +47,7 @@ export default function HomePage() {
               Access comprehensive flight logs, telemetry history, and mission analytics 
               for performance optimization and compliance reporting.
             </p>
-            <Link href="/track/logs">
+            <Link href="/logs">
               <Button variant="outline" className="w-full cursor-pointer">View Logs</Button>
             </Link>
           </CardContent>

@@ -26,19 +26,19 @@ interface NavItem {
 
 const navigationItems: NavItem[] = [
   {
-    href: '/track',
+    href: '/',
     label: 'Overview',
     icon: Home,
     description: 'System overview and fleet status'
   },
   {
-    href: '/track/dashboard',
+    href: '/dashboard',
     label: 'Operations',
     icon: Activity,
     description: 'Real-time drone monitoring'
   },
   {
-    href: '/track/logs',
+    href: '/logs',
     label: 'Mission Logs',
     icon: FileText,
     description: 'Flight history and analytics'

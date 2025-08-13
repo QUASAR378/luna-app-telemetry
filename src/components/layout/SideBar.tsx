@@ -38,6 +38,12 @@ const navigationItems: NavItem[] = [
     description: 'Real-time drone monitoring'
   },
   {
+    href: '/realtime',
+    label: 'Real-Time',
+    icon: Wifi,
+    description: 'Live MQTT telemetry streams'
+  },
+  {
     href: '/logs',
     label: 'Mission Logs',
     icon: FileText,

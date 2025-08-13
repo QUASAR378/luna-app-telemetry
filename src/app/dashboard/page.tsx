@@ -12,91 +12,46 @@ import { HistoricalChart } from '@/components/dashboard/HistoricalChart';
 import { QuickControl } from '@/components/admin/QuickControl';
 import { Card, CardContent } from '@/components/ui/card';
 import { getTimeRangeInMs } from '@/lib/utils';
-import { Activity, Wifi, Database } from 'lucide-react';
+import { Activity, Wifi, Database, Server, AlertTriangle } from 'lucide-react';
 
+// Import the new telemetry context
+import { useTelemetry } from '@/contexts/TelemetryContext';
 
 export default function DashboardPage() {
-  const [drones, setDrones] = useState<DroneInfo[]>([]);
-  const [selectedDrone, setSelectedDrone] = useState<string>('');
-  const [currentTelemetry, setCurrentTelemetry] = useState<TelemetryData | null>(null);
-  const [historicalData, setHistoricalData] = useState<TelemetryData[]>([]);
   const [timeRange, setTimeRange] = useState<'10m' | '1h' | '6h' | '24h' | '7d'>('1h');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
   const [hasMounted, setHasMounted] = useState(false);
 
-useEffect(() => {
-  setHasMounted(true);
-}, []);
+  // Use the new telemetry context
+  const {
+    drones,
+    currentTelemetry,
+    historicalData,
+    isConnected,
+    dataSource,
+    lastUpdate,
+    error,
+    selectDrone,
+  } = useTelemetry();
 
+  const [selectedDrone, setSelectedDrone] = useState<string>('');
 
-  // Fetch available drones
   useEffect(() => {
-    const fetchDrones = async () => {
-      try {
-        // Small delay for data to be available
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        
-        const response = await fetch('/api/drones');
-        if (!response.ok) throw new Error('Failed to fetch drone fleet data');
-        const data = await response.json();
-        setDrones(data);
-        if (data.length > 0 && !selectedDrone) {
-          setSelectedDrone(data[0].id);
-        }
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to connect to drone fleet');
-      }
-    };
+    setHasMounted(true);
+  }, []);
 
-    fetchDrones();
-    
-    // Refresh drone list every 10 seconds to catch status changes
-    const interval = setInterval(fetchDrones, 10000);
-    return () => clearInterval(interval);
-  }, [selectedDrone]);
-
-  // Fetch telemetry data for selected drone
+  // Auto-select drone if none selected
   useEffect(() => {
-    if (!selectedDrone) return;
+    if (drones.length > 0 && !selectedDrone) {
+      setSelectedDrone(drones[0].id);
+      selectDrone(drones[0].id);
+    }
+  }, [drones, selectedDrone, selectDrone]);
 
-    const fetchTelemetry = async () => {
-      try {
-        setLoading(true);
-        const timeRangeMs = getTimeRangeInMs(timeRange);
-        const since = new Date(Date.now() - timeRangeMs).toISOString();
-        
-        const response = await fetch(
-          `/api/telemetry?droneId=${selectedDrone}&since=${since}&limit=100`
-        );
-        
-        if (!response.ok) throw new Error('Failed to fetch telemetry data');
-        const data = await response.json();
-        
-        if (data.logs && data.logs.length > 0) {
-          setCurrentTelemetry(data.logs[0]); // Most recent
-          setHistoricalData(data.logs);
-          setError(null);
-          setLastUpdate(new Date());
-        } else {
-          setCurrentTelemetry(null);
-          setHistoricalData([]);
-        }
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to receive telemetry data');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTelemetry();
-    
-    // Set up polling for real-time updates every 15 seconds
-    const interval = setInterval(fetchTelemetry, 15000);
-    
-    return () => clearInterval(interval);
-  }, [selectedDrone, timeRange]);
+  // Handle drone selection
+  const handleDroneSelect = (droneId: string) => {
+    setSelectedDrone(droneId);
+    selectDrone(droneId);
+  };
 
   const timeRangeOptions = [
     { value: '10m' as const, label: 'Last 10 minutes' },
@@ -105,6 +60,53 @@ useEffect(() => {
     { value: '24h' as const, label: 'Last 24 hours' },
     { value: '7d' as const, label: 'Last 7 days' },
   ];
+
+  // Get status indicator components
+  const getStatusIndicator = () => {
+    if (isConnected) {
+      return (
+        <div className="flex items-center space-x-2 text-sm text-green-600">
+          <Server className="h-4 w-4" />
+          <span>Backend Connected</span>
+        </div>
+      );
+    } else {
+      return (
+        <div className="flex items-center space-x-2 text-sm text-amber-600">
+          <AlertTriangle className="h-4 w-4" />
+          <span>Using Simulator</span>
+        </div>
+      );
+    }
+  };
+
+  const getDataSourceIndicator = () => {
+    switch (dataSource) {
+      case 'mqtt':
+        return (
+          <div className="flex items-center space-x-2 text-sm text-green-600">
+            <Database className="h-4 w-4" />
+            <span>Live MQTT Data</span>
+          </div>
+        );
+      case 'polling':
+        return (
+          <div className="flex items-center space-x-2 text-sm text-blue-600">
+            <Database className="h-4 w-4" />
+            <span>API Polling</span>
+          </div>
+        );
+      case 'fallback':
+        return (
+          <div className="flex items-center space-x-2 text-sm text-amber-600">
+            <AlertTriangle className="h-4 w-4" />
+            <span>Simulator Data</span>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
 
   if (error && drones.length === 0) {
     return (
@@ -142,22 +144,21 @@ useEffect(() => {
             </p>
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 rounded-full bg-green-400"></div>
-              {hasMounted && (
-  <span className="text-xs text-muted-foreground">
-    Last update: {lastUpdate.toLocaleTimeString()}
-  </span>
-)}
-
+              {hasMounted && lastUpdate && (
+                <span className="text-xs text-muted-foreground">
+                  Last update: {lastUpdate.toLocaleTimeString()}
+                </span>
+              )}
             </div>
           </div>
         </div>
         
-        {/* Time Range Filter */}
+        {/* System Status Indicators */}
         <div className="flex items-center space-x-4">
-          <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-            <Database className="h-4 w-4 text-green-400" />
-            <span>Data Link Active</span>
-          </div>
+          {getStatusIndicator()}
+          {getDataSourceIndicator()}
+          
+          {/* Time Range Filter */}
           <div className="flex items-center space-x-2">
             <span className="text-sm text-muted-foreground">Time range:</span>
             <select
@@ -179,32 +180,19 @@ useEffect(() => {
       <DroneSelector
         drones={drones}
         selectedDrone={selectedDrone}
-        onDroneSelect={setSelectedDrone}
+        onDroneSelect={handleDroneSelect}
       />
 
-      {loading ? (
-        <Card className="bg-card/50 border-border/50">
-          <CardContent className="p-8 text-center">
-            <div className="flex items-center justify-center space-x-2">
-              <Activity className="h-5 w-5 animate-pulse text-primary" />
-              <p className="text-muted-foreground">Loading telemetry data stream...</p>
-            </div>
-          </CardContent>
-        </Card>
-      ) : (
-        <>
-          {/* Main Telemetry Display */}
-          <TelemetryGrid telemetry={currentTelemetry} />
+      {/* Main Telemetry Display */}
+      <TelemetryGrid telemetry={currentTelemetry} />
 
-          {/* Map and Analytics */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {hasMounted && <DroneMap telemetry={currentTelemetry} />}
-            <div className="lg:col-span-1">
-              <HistoricalChart data={historicalData} timeRange={timeRange} />
-            </div>
-          </div>
-        </>
-      )}
+      {/* Map and Analytics */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {hasMounted && <DroneMap telemetry={currentTelemetry} />}
+        <div className="lg:col-span-1">
+          <HistoricalChart data={historicalData} timeRange={timeRange} />
+        </div>
+      </div>
 
       {/* Admin Control Panel */}
       <QuickControl />

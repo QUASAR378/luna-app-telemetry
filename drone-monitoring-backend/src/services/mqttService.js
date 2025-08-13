@@ -97,7 +97,10 @@ class MqttService {
 
   async _processTelemetryData(droneId, data) {
     try {
-      // Save telemetry data to database
+      // Normalize status to match frontend expectations
+      const normalizedStatus = this._normalizeStatus(data.status);
+      
+      // Save telemetry data to database with frontend-compatible structure
       const telemetryData = new TelemetryData({
         droneId,
         timestamp: new Date(),
@@ -110,7 +113,10 @@ class MqttService {
           latitude: data.latitude || data.location?.latitude,
           longitude: data.longitude || data.location?.longitude,
         },
-        status: data.status || 'Standby',
+        // Also store as lat/lng for frontend compatibility
+        lat: data.lat || data.latitude || data.location?.latitude,
+        lng: data.lng || data.longitude || data.location?.longitude,
+        status: normalizedStatus,
       });
 
       await telemetryData.save();
@@ -120,8 +126,8 @@ class MqttService {
       if (drone) {
         drone.lastSeen = new Date();
         drone.lastLocation = {
-          latitude: data.latitude || data.location?.latitude,
-          longitude: data.longitude || data.location?.longitude,
+          latitude: data.latitude || data.location?.latitude || data.lat,
+          longitude: data.longitude || data.location?.longitude || data.lng,
         };
         drone.lastTelemetry = {
           battery: data.battery,
@@ -130,7 +136,7 @@ class MqttService {
           speed: data.speed,
           altitude: data.altitude,
         };
-        drone.status = data.status || drone.status;
+        drone.status = normalizedStatus;
         drone.updateOnlineStatus();
         await drone.save();
       }
@@ -141,6 +147,9 @@ class MqttService {
 
   async _processDroneStatus(droneId, data) {
     try {
+      // Normalize status to match frontend expectations
+      const normalizedStatus = this._normalizeStatus(data.status);
+      
       // Update or create drone in database
       let drone = await Drone.findOne({ droneId });
       
@@ -149,13 +158,13 @@ class MqttService {
         drone = new Drone({
           droneId,
           name: data.name || `Drone ${droneId}`,
-          status: data.status || 'Powered Off',
+          status: normalizedStatus,
           isOnline: true,
           lastSeen: new Date(),
         });
       } else {
         // Update existing drone
-        drone.status = data.status || drone.status;
+        drone.status = normalizedStatus;
         drone.lastSeen = new Date();
         if (data.name) drone.name = data.name;
         drone.updateOnlineStatus();
@@ -165,6 +174,37 @@ class MqttService {
     } catch (error) {
       logger.error(`Error processing status for drone ${droneId}:`, error);
     }
+  }
+
+  // Normalize status values to match frontend expectations
+  _normalizeStatus(status) {
+    if (!status) return 'Standby';
+    
+    const statusMap = {
+      'powered_off': 'Powered Off',
+      'powered off': 'Powered Off',
+      'in_flight': 'In Flight',
+      'in flight': 'In Flight',
+      'pre_flight': 'Pre-Flight',
+      'pre flight': 'Pre-Flight',
+      'returning': 'Returning',
+      'delivered': 'Delivered',
+      'landing': 'Landing',
+      'maintenance': 'Maintenance',
+      'emergency': 'Emergency',
+      'active': 'Active',
+      'standby': 'Standby',
+    };
+
+    const normalized = statusMap[status.toLowerCase()] || status;
+    
+    // Validate against allowed statuses
+    const allowedStatuses = [
+      'Standby', 'Pre-Flight', 'Active', 'In Flight', 'Landing', 
+      'Delivered', 'Returning', 'Powered Off', 'Maintenance', 'Emergency'
+    ];
+    
+    return allowedStatuses.includes(normalized) ? normalized : 'Standby';
   }
 
   disconnect() {

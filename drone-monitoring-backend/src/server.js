@@ -5,6 +5,7 @@ const logger = require('./utils/logger');
 const connectDatabase = require('./utils/database');
 const mqttService = require('./services/mqttService');
 const droneRoutes = require('./routes/droneRoutes');
+const mongoose = require('mongoose');
 
 const app = express();
 
@@ -29,6 +30,23 @@ app.get('/health', (req, res) => {
     timestamp: new Date(),
     mqtt: mqttService.isConnected ? 'connected' : 'disconnected',
     db: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+    version: '1.0.0',
+    environment: config.server.env,
+    uptime: process.uptime(),
+  });
+});
+
+// Root endpoint for basic info
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Luna Drone Monitoring Backend',
+    version: '1.0.0',
+    status: 'operational',
+    endpoints: {
+      health: '/health',
+      drones: '/api/drones',
+      telemetry: '/api/drones/telemetry/data',
+    },
   });
 });
 

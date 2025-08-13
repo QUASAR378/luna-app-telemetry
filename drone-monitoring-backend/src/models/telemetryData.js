@@ -31,19 +31,62 @@ const telemetryDataSchema = new mongoose.Schema({
   altitude: {
     type: Number,
   },
+  // Support both location structure (backend) and lat/lng (frontend)
   location: {
     latitude: Number,
     longitude: Number,
   },
+  // Frontend-compatible lat/lng fields
+  lat: Number,
+  lng: Number,
   status: {
     type: String,
-    enum: ['Powered Off', 'Standby', 'In Flight'],
-    default: 'Powered Off',
+    enum: [
+      'Standby', 
+      'Pre-Flight', 
+      'Active', 
+      'In Flight', 
+      'Landing', 
+      'Delivered', 
+      'Returning', 
+      'Powered Off', 
+      'Maintenance', 
+      'Emergency'
+    ],
+    default: 'Standby',
   },
+}, {
+  timestamps: true,
 });
 
 // Index for efficient time-based queries
 telemetryDataSchema.index({ timestamp: -1, droneId: 1 });
+
+// Pre-save middleware to ensure lat/lng are populated from location
+telemetryDataSchema.pre('save', function(next) {
+  if (this.location && this.location.latitude && this.location.longitude) {
+    this.lat = this.location.latitude;
+    this.lng = this.location.longitude;
+  }
+  next();
+});
+
+// Method to get frontend-compatible data
+telemetryDataSchema.methods.toFrontendFormat = function() {
+  return {
+    _id: this._id,
+    droneId: this.droneId,
+    timestamp: this.timestamp,
+    battery: this.battery,
+    temperature: this.temperature,
+    humidity: this.humidity,
+    speed: this.speed,
+    altitude: this.altitude,
+    lat: this.lat || this.location?.latitude || 0,
+    lng: this.lng || this.location?.longitude || 0,
+    status: this.status,
+  };
+};
 
 const TelemetryData = mongoose.model('TelemetryData', telemetryDataSchema);
 

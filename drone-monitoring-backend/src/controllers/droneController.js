@@ -8,18 +8,12 @@ exports.getAllDrones = async (req, res) => {
   try {
     const drones = await Drone.find({});
     
-    // Update online status for each drone
+    // Update online status for each drone and convert to frontend format
     const dronesWithStatus = drones.map(drone => {
       const isOnline = drone.updateOnlineStatus();
-      return {
-        id: drone.droneId,
-        name: drone.name,
-        status: drone.status,
-        isOnline: isOnline ? 'ONLINE' : 'OFFLINE',
-        lastSeen: drone.lastSeen,
-        lastLocation: drone.lastLocation,
-        lastTelemetry: drone.lastTelemetry,
-      };
+      // Use the new frontend-compatible method
+      const frontendData = drone.toFrontendFormat();
+      return frontendData;
     });
     
     res.status(200).json(dronesWithStatus);
@@ -40,15 +34,8 @@ exports.getDroneById = async (req, res) => {
     
     const isOnline = drone.updateOnlineStatus();
     
-    const droneData = {
-      id: drone.droneId,
-      name: drone.name,
-      status: drone.status,
-      isOnline: isOnline ? 'ONLINE' : 'OFFLINE',
-      lastSeen: drone.lastSeen,
-      lastLocation: drone.lastLocation,
-      lastTelemetry: drone.lastTelemetry,
-    };
+    // Use the new frontend-compatible method
+    const droneData = drone.toFrontendFormat();
     
     res.status(200).json(droneData);
   } catch (error) {
@@ -69,6 +56,9 @@ exports.getDroneHistory = async (req, res) => {
       case '10min':
         startTime.setMinutes(startTime.getMinutes() - 10);
         break;
+      case '1h':
+        startTime.setHours(startTime.getHours() - 1);
+        break;
       case '6h':
         startTime.setHours(startTime.getHours() - 6);
         break;
@@ -88,7 +78,10 @@ exports.getDroneHistory = async (req, res) => {
       timestamp: { $gte: startTime }
     }).sort({ timestamp: 1 });
     
-    res.status(200).json(telemetryData);
+    // Convert to frontend format
+    const frontendData = telemetryData.map(data => data.toFrontendFormat());
+    
+    res.status(200).json(frontendData);
   } catch (error) {
     logger.error(`Error fetching history for drone ${req.params.id}:`, error);
     res.status(500).json({ error: 'Failed to fetch drone history' });
@@ -127,17 +120,21 @@ exports.getMissionLogs = async (req, res) => {
       .skip(parseInt(offset))
       .limit(parseInt(limit));
     
-    const formattedLogs = logs.map(log => ({
-      timestamp: log.timestamp,
-      droneId: log.droneId,
-      status: log.status,
-      battery: `${log.battery}%`,
-      temperature: `${log.temperature}°C`,
-      humidity: `${log.humidity}%`,
-      speed: `${log.speed} km/h`,
-      altitude: `${log.altitude}m`,
-      location: log.location ? `${log.location.latitude}, ${log.location.longitude}` : 'N/A'
-    }));
+    // Convert to frontend format
+    const formattedLogs = logs.map(log => {
+      const frontendData = log.toFrontendFormat();
+      return {
+        timestamp: frontendData.timestamp,
+        droneId: frontendData.droneId,
+        status: frontendData.status,
+        battery: `${frontendData.battery}%`,
+        temperature: `${frontendData.temperature}°C`,
+        humidity: `${frontendData.humidity}%`,
+        speed: `${frontendData.speed} km/h`,
+        altitude: `${frontendData.altitude}m`,
+        location: `${frontendData.lat}, ${frontendData.lng}`
+      };
+    });
     
     res.status(200).json({
       logs: formattedLogs,
@@ -230,5 +227,95 @@ exports.sendCommandToDrone = async (req, res) => {
   } catch (error) {
     logger.error(`Error sending command to drone ${req.params.id}:`, error);
     res.status(500).json({ error: 'Failed to send command to drone' });
+  }
+};
+
+// Get telemetry data with filtering
+exports.getTelemetryData = async (req, res) => {
+  try {
+    const { droneId, since, limit = 100, status } = req.query;
+    
+    // Build query filter
+    const filter = {};
+    
+    if (droneId) {
+      filter.droneId = droneId;
+    }
+    
+    if (status) {
+      filter.status = status;
+    }
+    
+    // Date range filter
+    if (since) {
+      filter.timestamp = { $gte: new Date(since) };
+    }
+    
+    // Get telemetry data with pagination
+    const telemetryData = await TelemetryData.find(filter)
+      .sort({ timestamp: -1 })
+      .limit(parseInt(limit))
+      .lean();
+    
+    // Transform data to match frontend expectations
+    const transformedData = telemetryData.map(data => ({
+      _id: data._id,
+      droneId: data.droneId,
+      timestamp: data.timestamp,
+      battery: data.battery,
+      temperature: data.temperature,
+      humidity: data.humidity,
+      speed: data.speed,
+      altitude: data.altitude,
+      lat: data.lat || data.location?.latitude || 0,
+      lng: data.lng || data.location?.longitude || 0,
+      status: data.status,
+    }));
+    
+    res.status(200).json({
+      logs: transformedData,
+      total: transformedData.length,
+      droneId: droneId || 'all',
+      timeRange: since ? `since ${new Date(since).toISOString()}` : 'all time'
+    });
+    
+  } catch (error) {
+    logger.error('Error fetching telemetry data:', error);
+    res.status(500).json({ error: 'Failed to fetch telemetry data' });
+  }
+};
+
+// Get migration status
+exports.getMigrationStatus = async (req, res) => {
+  try {
+    const { checkMigrationStatus } = require('../utils/dataMigration');
+    const status = await checkMigrationStatus();
+    
+    res.status(200).json({
+      status: 'success',
+      data: status,
+      message: status.needsTelemetryMigration || status.needsDroneMigration ? 
+        'Migration needed' : 'Data is up to date'
+    });
+  } catch (error) {
+    logger.error('Error checking migration status:', error);
+    res.status(500).json({ error: 'Failed to check migration status' });
+  }
+};
+
+// Run data migration
+exports.runMigration = async (req, res) => {
+  try {
+    const { runMigration } = require('../utils/dataMigration');
+    const result = await runMigration();
+    
+    res.status(200).json({
+      status: 'success',
+      data: result,
+      message: 'Migration completed successfully'
+    });
+  } catch (error) {
+    logger.error('Error running migration:', error);
+    res.status(500).json({ error: 'Failed to run migration' });
   }
 };

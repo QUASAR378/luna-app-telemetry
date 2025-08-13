@@ -1,3 +1,8 @@
+// This model is no longer used in the frontend
+// The frontend now connects to the backend for all database operations
+// This file is kept for reference but commented out to prevent errors
+
+/*
 import mongoose from 'mongoose';
 
 const TelemetrySchema = new mongoose.Schema({
@@ -62,3 +67,7 @@ const TelemetrySchema = new mongoose.Schema({
 TelemetrySchema.index({ droneId: 1, timestamp: -1 });
 
 export default mongoose.models.Telemetry || mongoose.model('Telemetry', TelemetrySchema);
+*/
+
+// Placeholder export to prevent import errors
+export default null;

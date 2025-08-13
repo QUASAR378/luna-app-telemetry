@@ -1,0 +1,55 @@
+import mqtt from 'mqtt';
+
+class MqttHandler {
+  constructor() {
+    this.mqttClient = null;
+    this.subscriptions = new Map();
+  }
+
+  connect() {
+    this.mqttClient = mqtt.connect(process.env.MQTT_BROKER_URL, {
+      port: process.env.MQTT_PORT,
+      username: process.env.MQTT_USERNAME || undefined,
+      password: process.env.MQTT_PASSWORD || undefined
+    });
+
+    this.mqttClient.on('connect', () => {
+      console.log(`Connected to MQTT broker at ${process.env.MQTT_BROKER_URL}`);
+      this.subscribe(process.env.MQTT_TELEMETRY_TOPIC);
+    });
+
+    this.mqttClient.on('error', (err) => {
+      console.error('MQTT Error:', err);
+    });
+  }
+
+  subscribe(topic) {
+    this.mqttClient.subscribe(topic, { qos: 0 }, (err) => {
+      if (!err) console.log(`Subscribed to ${topic}`);
+    });
+  }
+
+  addMessageHandler(topic, callback) {
+    if (!this.subscriptions.has(topic)) {
+      this.subscriptions.set(topic, []);
+    }
+    this.subscriptions.get(topic).push(callback);
+  }
+
+  handleIncomingMessages() {
+    this.mqttClient.on('message', (topic, message) => {
+      const callbacks = this.subscriptions.get(topic) || [];
+      callbacks.forEach(cb => cb(message.toString()));
+    });
+  }
+
+  sendCommand(command) {
+    this.mqttClient.publish(
+      process.env.MQTT_COMMANDS_TOPIC, 
+      JSON.stringify(command),
+      { qos: 1 }
+    );
+  }
+}
+
+export default new MqttHandler();

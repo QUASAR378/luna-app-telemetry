@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import Telemetry from '@/models/Telemetry';
-import { connectDB } from '@/lib/db';
 
-// In-memory store for instant status changes
+// In-memory store for instant status changes (fallback when backend is unavailable)
 const droneStates = new Map<string, {
   status: string;
   isOnline: boolean;
@@ -29,27 +27,8 @@ export async function POST(request: NextRequest) {
       lastUpdate: new Date(),
     });
 
-    // Also update database with new telemetry record
-    await connectDB();
-    
-    // Get the most recent telemetry for this drone
-    const lastTelemetry = await Telemetry.findOne({ droneId }).sort({ timestamp: -1 });
-    
-    // Create new telemetry record with updated status
-    const newTelemetry = new Telemetry({
-      droneId,
-      timestamp: new Date(),
-      battery: battery !== undefined ? battery : (lastTelemetry?.battery || 85),
-      temperature: lastTelemetry?.temperature || 28,
-      humidity: lastTelemetry?.humidity || 65,
-      speed: status === 'In Flight' ? 45 : 0,
-      altitude: status === 'In Flight' ? 150 : 0,
-      lat: lastTelemetry?.lat || -1.2921,
-      lng: lastTelemetry?.lng || 36.8219,
-      status,
-    });
-
-    await newTelemetry.save();
+    // Note: Database operations are now handled by the backend
+    // This endpoint serves as a fallback for local state management
 
     return NextResponse.json({
       success: true,

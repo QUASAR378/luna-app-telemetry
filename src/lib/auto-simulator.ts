@@ -1,6 +1,4 @@
-import Telemetry from '../models/Telemetry';
 import { TelemetryData } from '@/types/telemetry';
-import { connectDB } from './db';
 
 interface DroneProfile {
   id: string;
@@ -84,10 +82,11 @@ class AutoDroneSimulator {
     console.log('🚀 Starting auto drone simulation...');
     
     try {
-      await connectDB();
+      // Removed database connection - no longer needed
+      // await connectDB();
       
       // Generate initial historical data if database is empty
-      await this.initializeDatabase();
+      // await this.initializeDatabase(); // Removed - no longer needed
       
       this.isRunning = true;
       
@@ -116,43 +115,16 @@ class AutoDroneSimulator {
     console.log('🛑 Auto simulation stopped');
   }
 
-  private async initializeDatabase() {
-    try {
-      const count = await Telemetry.countDocuments();
-      
-      if (count === 0) {
-        console.log('📊 Database is empty, generating initial historical data...');
-        await this.generateHistoricalData(6); // 6 hours of history
-        console.log('✅ Initial historical data generated');
-      } else {
-        console.log(`📊 Database has ${count} existing records`);
-      }
-    } catch (error) {
-      console.error('❌ Failed to check/initialize database:', error);
-    }
+  private async generateHistoricalData(hours: number) {
+    // This method is no longer needed since we're not using local database
+    // Historical data will come from the backend when available
+    console.log(`📊 Historical data generation disabled - using backend data instead`);
   }
 
-  private async generateHistoricalData(hours: number) {
-    const now = new Date();
-    const intervalMinutes = 3; // Every 3 minutes
-    const totalPoints = (hours * 60) / intervalMinutes;
-    const batchData: TelemetryData[] = [];
-
-    for (let i = totalPoints; i >= 0; i--) {
-      const timestamp = new Date(now.getTime() - i * intervalMinutes * 60000);
-      
-      Array.from(this.profiles.values()).forEach(profile => {
-        const data = this.generateHistoricalDataPoint(profile, timestamp);
-        batchData.push(data);
-      });
-    }
-
-    // Insert in batches
-    const batchSize = 100;
-    for (let i = 0; i < batchData.length; i += batchSize) {
-      const batch = batchData.slice(i, i + batchSize);
-      await Telemetry.insertMany(batch);
-    }
+  private async saveTelemetryBatch(batchData: TelemetryData[]) {
+    // This method is no longer needed since we're not using local database
+    // Data will be sent to backend when available
+    console.log(`📊 Batch saving disabled - using backend instead`);
   }
 
   private generateHistoricalDataPoint(profile: DroneProfile, timestamp: Date): TelemetryData {
@@ -202,20 +174,19 @@ class AutoDroneSimulator {
 
   private async generateAndSaveTelemetry() {
     try {
-      const telemetryData: TelemetryData[] = [];
       const now = new Date();
+      const telemetryData: TelemetryData[] = [];
 
-      for (const [droneId, profile] of this.profiles) {
-        // Update drone state
+      // Update each drone's state and generate telemetry
+      for (const profile of this.profiles.values()) {
         this.updateDroneState(profile);
-        
-        // Generate telemetry based on current state
-        const data = this.generateCurrentTelemetry(profile, now);
-        telemetryData.push(data);
+        const telemetry = this.generateCurrentTelemetry(profile, now);
+        telemetryData.push(telemetry);
       }
 
-      // Save to database
-      await Telemetry.insertMany(telemetryData);
+      // Instead of saving to database, we'll store in memory for fallback
+      // The frontend will use this data when backend is unavailable
+      this.lastGeneratedData = telemetryData;
       
       // Log summary (only in development)
       if (process.env.NODE_ENV === 'development') {
@@ -227,7 +198,39 @@ class AutoDroneSimulator {
         });
       }
     } catch (error) {
-      console.error('❌ Failed to generate/save telemetry:', error);
+      console.error('❌ Failed to generate telemetry:', error);
+    }
+  }
+
+  // Store last generated data for fallback use
+  private lastGeneratedData: TelemetryData[] = [];
+
+  // Method to get current telemetry data (for fallback)
+  getCurrentTelemetry(): TelemetryData[] {
+    return this.lastGeneratedData;
+  }
+
+  // Method to get drone profiles (for fallback)
+  getDroneProfiles() {
+    return Array.from(this.profiles.values()).map(profile => ({
+      id: profile.id,
+      name: profile.name,
+      lastSeen: new Date(),
+      status: this.getStatusFromPhase(profile.missionPhase),
+      isOnline: true,
+      battery: profile.currentBattery,
+    }));
+  }
+
+  // Convert mission phase to status string
+  private getStatusFromPhase(phase: DroneProfile['missionPhase']): string {
+    switch (phase) {
+      case 'idle': return 'Standby';
+      case 'preparing': return 'Pre-Flight';
+      case 'flying': return 'In Flight';
+      case 'delivering': return 'Delivered';
+      case 'returning': return 'Returning';
+      default: return 'Standby';
     }
   }
 

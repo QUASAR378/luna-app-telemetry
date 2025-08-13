@@ -21,4 +21,11 @@ router.get('/logs/export', droneController.exportLogsAsCsv);
 // Send command to a specific drone
 router.post('/:id/command', droneController.sendCommandToDrone);
 
+// Get telemetry data with filtering
+router.get('/telemetry/data', droneController.getTelemetryData);
+
+// Data migration endpoints
+router.get('/migration/status', droneController.getMigrationStatus);
+router.post('/migration/run', droneController.runMigration);
+
 module.exports = router;

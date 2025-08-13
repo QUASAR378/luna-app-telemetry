@@ -1,0 +1,64 @@
+import dotenv from 'dotenv';
+dotenv.config();
+import express from 'express';
+import WebSocket from 'ws';
+import cors from 'cors';
+import mqttHandler from './mqttHandler.js';
+
+// Initialize MQTT
+mqttHandler.connect();
+mqttHandler.handleIncomingMessages();
+
+// Express setup
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+// HTTP Server
+const server = app.listen(process.env.HTTP_PORT, () => {
+  console.log(`HTTP server running on port ${process.env.HTTP_PORT}`);
+});
+
+// WebSocket Server
+const wss = new WebSocket.Server({ server });
+
+wss.on('connection', (ws) => {
+  console.log('New WebSocket client connected');
+
+  // Handle telemetry from MQTT → WebSocket
+  const telemetryHandler = (data) => {
+    if (ws.readyState === WebSocket.OPEN) {
+      ws.send(data);
+    }
+  };
+  
+  mqttHandler.addMessageHandler(
+    process.env.MQTT_TELEMETRY_TOPIC, 
+    telemetryHandler
+  );
+
+  // Handle commands from WebSocket → MQTT
+  ws.on('message', (message) => {
+    try {
+      const command = JSON.parse(message);
+      mqttHandler.sendCommand(command);
+      console.log('Command sent:', command);
+    } catch (err) {
+      console.error('Invalid command format:', message);
+    }
+  });
+
+  ws.on('close', () => {
+    console.log('WebSocket client disconnected');
+    // Cleanup handlers
+    mqttHandler.subscriptions.delete(telemetryHandler);
+  });
+});
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'active',
+    mqtt: mqttHandler.mqttClient.connected ? 'connected' : 'disconnected'
+  });
+});

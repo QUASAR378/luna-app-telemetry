@@ -20,3 +20,383 @@
 {"level":"info","message":"Connected to MQTT broker","service":"drone-monitoring-backend","timestamp":"2025-08-14 00:29:13"}
 {"level":"info","message":"Subscribed to drone data topic","service":"drone-monitoring-backend","timestamp":"2025-08-14 00:29:13"}
 {"level":"info","message":"Subscribed to drone status topic","service":"drone-monitoring-backend","timestamp":"2025-08-14 00:29:13"}
+{"cause":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{"ac-ld12u8r-shard-00-00.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-00.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":254295879,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"},"ac-ld12u8r-shard-00-01.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-01.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":254295876,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"},"ac-ld12u8r-shard-00-02.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-02.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":254295879,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":"atlas-44p34y-shard-0","stale":false,"type":"ReplicaSetNoPrimary"},"errorLabelSet":{},"level":"error","message":"Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/","reason":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{"ac-ld12u8r-shard-00-00.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-00.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":254295879,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"},"ac-ld12u8r-shard-00-01.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-01.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":254295876,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"},"ac-ld12u8r-shard-00-02.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-02.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":254295879,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":"atlas-44p34y-shard-0","stale":false,"type":"ReplicaSetNoPrimary"},"service":"drone-monitoring-backend","stack":"MongooseServerSelectionError: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/\n    at _handleConnectionErrors (C:\\Users\\HP\\OneDrive\\Desktop\\luna-app-telemetry\\drone-monitoring-backend\\node_modules\\mongoose\\lib\\connection.js:1165:11)\n    at NativeConnection.openUri (C:\\Users\\HP\\OneDrive\\Desktop\\luna-app-telemetry\\drone-monitoring-backend\\node_modules\\mongoose\\lib\\connection.js:1096:11)\n    at async connectDatabase (C:\\Users\\HP\\OneDrive\\Desktop\\luna-app-telemetry\\drone-monitoring-backend\\src\\utils\\database.js:10:5)\n    at async startServer (C:\\Users\\HP\\OneDrive\\Desktop\\luna-app-telemetry\\drone-monitoring-backend\\src\\server.js:63:5)","timestamp":"2025-08-14 16:26:26"}
+{"cause":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{"ac-ld12u8r-shard-00-00.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-00.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":254587354,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"},"ac-ld12u8r-shard-00-01.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-01.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":254587365,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"},"ac-ld12u8r-shard-00-02.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-02.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":254587366,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":"atlas-44p34y-shard-0","stale":false,"type":"ReplicaSetNoPrimary"},"errorLabelSet":{},"level":"error","message":"Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/","reason":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{"ac-ld12u8r-shard-00-00.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-00.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":254587354,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"},"ac-ld12u8r-shard-00-01.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-01.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":254587365,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"},"ac-ld12u8r-shard-00-02.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-02.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":254587366,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":"atlas-44p34y-shard-0","stale":false,"type":"ReplicaSetNoPrimary"},"service":"drone-monitoring-backend","stack":"MongooseServerSelectionError: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/\n    at _handleConnectionErrors (C:\\Users\\HP\\OneDrive\\Desktop\\luna-app-telemetry\\drone-monitoring-backend\\node_modules\\mongoose\\lib\\connection.js:1165:11)\n    at NativeConnection.openUri (C:\\Users\\HP\\OneDrive\\Desktop\\luna-app-telemetry\\drone-monitoring-backend\\node_modules\\mongoose\\lib\\connection.js:1096:11)\n    at async connectDatabase (C:\\Users\\HP\\OneDrive\\Desktop\\luna-app-telemetry\\drone-monitoring-backend\\src\\utils\\database.js:10:5)\n    at async startServer (C:\\Users\\HP\\OneDrive\\Desktop\\luna-app-telemetry\\drone-monitoring-backend\\src\\server.js:63:5)","timestamp":"2025-08-14 16:31:17"}
+{"cause":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{"ac-ld12u8r-shard-00-00.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-00.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":334190680,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"},"ac-ld12u8r-shard-00-01.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-01.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":334190679,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"},"ac-ld12u8r-shard-00-02.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-02.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":334190681,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":"atlas-44p34y-shard-0","stale":false,"type":"ReplicaSetNoPrimary"},"errorLabelSet":{},"level":"error","message":"Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/","reason":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{"ac-ld12u8r-shard-00-00.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-00.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":334190680,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"},"ac-ld12u8r-shard-00-01.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-01.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":334190679,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"},"ac-ld12u8r-shard-00-02.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-02.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":334190681,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":"atlas-44p34y-shard-0","stale":false,"type":"ReplicaSetNoPrimary"},"service":"drone-monitoring-backend","stack":"MongooseServerSelectionError: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/\n    at _handleConnectionErrors (C:\\Users\\HP\\OneDrive\\Desktop\\luna-app-telemetry\\drone-monitoring-backend\\node_modules\\mongoose\\lib\\connection.js:1165:11)\n    at NativeConnection.openUri (C:\\Users\\HP\\OneDrive\\Desktop\\luna-app-telemetry\\drone-monitoring-backend\\node_modules\\mongoose\\lib\\connection.js:1096:11)\n    at runNextTicks (node:internal/process/task_queues:65:5)\n    at process.processTimers (node:internal/timers:546:9)\n    at async connectDatabase (C:\\Users\\HP\\OneDrive\\Desktop\\luna-app-telemetry\\drone-monitoring-backend\\src\\utils\\database.js:10:5)\n    at async startServer (C:\\Users\\HP\\OneDrive\\Desktop\\luna-app-telemetry\\drone-monitoring-backend\\src\\server.js:63:5)","timestamp":"2025-08-15 14:37:33"}
+{"cause":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{"ac-ld12u8r-shard-00-00.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-00.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":334966238,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"},"ac-ld12u8r-shard-00-01.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-01.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":334966221,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"},"ac-ld12u8r-shard-00-02.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-02.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":334966222,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":"atlas-44p34y-shard-0","stale":false,"type":"ReplicaSetNoPrimary"},"errorLabelSet":{},"level":"error","message":"Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/","reason":{"commonWireVersion":0,"compatible":true,"heartbeatFrequencyMS":10000,"localThresholdMS":15,"logicalSessionTimeoutMinutes":null,"maxElectionId":null,"maxSetVersion":null,"servers":{"ac-ld12u8r-shard-00-00.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-00.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":334966238,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"},"ac-ld12u8r-shard-00-01.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-01.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":334966221,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"},"ac-ld12u8r-shard-00-02.kevco2v.mongodb.net:27017":{"$clusterTime":null,"address":"ac-ld12u8r-shard-00-02.kevco2v.mongodb.net:27017","arbiters":[],"electionId":null,"error":{"beforeHandshake":false,"errorLabelSet":{}},"hosts":[],"iscryptd":false,"lastUpdateTime":334966222,"lastWriteDate":0,"logicalSessionTimeoutMinutes":null,"maxBsonObjectSize":null,"maxMessageSizeBytes":null,"maxWireVersion":0,"maxWriteBatchSize":null,"me":null,"minRoundTripTime":0,"minWireVersion":0,"passives":[],"primary":null,"roundTripTime":-1,"setName":null,"setVersion":null,"tags":{},"topologyVersion":null,"type":"Unknown"}},"setName":"atlas-44p34y-shard-0","stale":false,"type":"ReplicaSetNoPrimary"},"service":"drone-monitoring-backend","stack":"MongooseServerSelectionError: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/\n    at _handleConnectionErrors (C:\\Users\\HP\\OneDrive\\Desktop\\luna-app-telemetry\\drone-monitoring-backend\\node_modules\\mongoose\\lib\\connection.js:1165:11)\n    at NativeConnection.openUri (C:\\Users\\HP\\OneDrive\\Desktop\\luna-app-telemetry\\drone-monitoring-backend\\node_modules\\mongoose\\lib\\connection.js:1096:11)\n    at async connectDatabase (C:\\Users\\HP\\OneDrive\\Desktop\\luna-app-telemetry\\drone-monitoring-backend\\src\\utils\\database.js:10:5)\n    at async startServer (C:\\Users\\HP\\OneDrive\\Desktop\\luna-app-telemetry\\drone-monitoring-backend\\src\\server.js:63:5)","timestamp":"2025-08-15 14:50:28"}
+{"level":"info","message":"Connected to MongoDB successfully","service":"drone-monitoring-backend","timestamp":"2025-08-20 17:39:07"}
+{"level":"info","message":"WebSocket server initialized on /ws","service":"drone-monitoring-backend","timestamp":"2025-08-20 17:39:08"}
+{"level":"info","message":"Server started on port 3000 in development mode","service":"drone-monitoring-backend","timestamp":"2025-08-20 17:39:08"}
+{"level":"info","message":"WebSocket server available at ws://localhost:3000/ws","service":"drone-monitoring-backend","timestamp":"2025-08-20 17:39:08"}
+{"level":"info","message":"Connected to MQTT broker","service":"drone-monitoring-backend","timestamp":"2025-08-20 17:39:08"}
+{"level":"info","message":"Subscribed to drone data topic","service":"drone-monitoring-backend","timestamp":"2025-08-20 17:39:08"}
+{"level":"info","message":"Subscribed to drone status topic","service":"drone-monitoring-backend","timestamp":"2025-08-20 17:39:08"}
+{"level":"info","message":"Connected to MongoDB successfully","service":"drone-monitoring-backend","timestamp":"2025-08-20 17:40:56"}
+{"level":"info","message":"WebSocket server initialized on /ws","service":"drone-monitoring-backend","timestamp":"2025-08-20 17:40:57"}
+{"address":"::","code":"EADDRINUSE","errno":-4091,"level":"error","message":"WebSocket server error: listen EADDRINUSE: address already in use :::3000","port":3000,"service":"drone-monitoring-backend","stack":"Error: listen EADDRINUSE: address already in use :::3000\n    at Server.setupListenHandle [as _listen2] (node:net:1912:16)\n    at listenInCluster (node:net:1969:12)\n    at Server.listen (node:net:2074:7)\n    at startServer (C:\\Users\\HP\\OneDrive\\Desktop\\luna-app-telemetry\\drone-monitoring-backend\\src\\server.js:78:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","syscall":"listen","timestamp":"2025-08-20 17:40:57"}
+{"level":"info","message":"Connected to MQTT broker","service":"drone-monitoring-backend","timestamp":"2025-08-20 17:40:57"}
+{"level":"info","message":"Subscribed to drone data topic","service":"drone-monitoring-backend","timestamp":"2025-08-20 17:40:57"}
+{"level":"info","message":"Subscribed to drone status topic","service":"drone-monitoring-backend","timestamp":"2025-08-20 17:40:57"}
+{"level":"info","message":"Connected to MongoDB successfully","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:01:23"}
+{"level":"info","message":"WebSocket server initialized on /ws","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:01:24"}
+{"address":"::","code":"EADDRINUSE","errno":-4091,"level":"error","message":"WebSocket server error: listen EADDRINUSE: address already in use :::3000","port":3000,"service":"drone-monitoring-backend","stack":"Error: listen EADDRINUSE: address already in use :::3000\n    at Server.setupListenHandle [as _listen2] (node:net:1912:16)\n    at listenInCluster (node:net:1969:12)\n    at Server.listen (node:net:2074:7)\n    at startServer (C:\\Users\\HP\\OneDrive\\Desktop\\luna-app-telemetry\\drone-monitoring-backend\\src\\server.js:78:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","syscall":"listen","timestamp":"2025-08-20 18:01:24"}
+{"level":"info","message":"Connected to MQTT broker","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:01:24"}
+{"level":"info","message":"Subscribed to drone data topic","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:01:24"}
+{"level":"info","message":"Subscribed to drone status topic","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:01:24"}
+{"level":"info","message":"Connected to MongoDB successfully","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:04:50"}
+{"level":"info","message":"Connected to MongoDB successfully","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:04:51"}
+{"level":"info","message":"WebSocket server initialized on /ws","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:04:51"}
+{"level":"info","message":"Server started on port 3000 in development mode","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:04:51"}
+{"level":"info","message":"WebSocket server available at ws://localhost:3000/ws","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:04:51"}
+{"level":"info","message":"WebSocket server initialized on /ws","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:04:51"}
+{"address":"::","code":"EADDRINUSE","errno":-4091,"level":"error","message":"WebSocket server error: listen EADDRINUSE: address already in use :::3000","port":3000,"service":"drone-monitoring-backend","stack":"Error: listen EADDRINUSE: address already in use :::3000\n    at Server.setupListenHandle [as _listen2] (node:net:1912:16)\n    at listenInCluster (node:net:1969:12)\n    at Server.listen (node:net:2074:7)\n    at startServer (C:\\Users\\HP\\OneDrive\\Desktop\\luna-app-telemetry\\drone-monitoring-backend\\src\\server.js:92:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","syscall":"listen","timestamp":"2025-08-20 18:04:51"}
+{"level":"info","message":"Connected to MQTT broker","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:04:51"}
+{"level":"info","message":"Connected to MQTT broker","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:04:51"}
+{"level":"info","message":"Subscribed to drone data topic","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:04:51"}
+{"level":"info","message":"Subscribed to drone status topic","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:04:51"}
+{"level":"info","message":"Subscribed to drone data topic","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:04:51"}
+{"level":"info","message":"Subscribed to drone status topic","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:04:51"}
+{"level":"info","message":"Connected to MongoDB successfully","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:10"}
+{"level":"info","message":"Connected to MongoDB successfully","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:11"}
+{"level":"info","message":"WebSocket server initialized on /ws","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:11"}
+{"level":"info","message":"Server started on port 3000 in development mode","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:11"}
+{"level":"info","message":"WebSocket server available at ws://localhost:3000/ws","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:11"}
+{"level":"info","message":"Connected to MQTT broker","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:11"}
+{"level":"info","message":"Subscribed to drone data topic","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:11"}
+{"level":"info","message":"Subscribed to drone status topic","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:11"}
+{"level":"info","message":"WebSocket server initialized on /ws","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:11"}
+{"address":"::","code":"EADDRINUSE","errno":-4091,"level":"error","message":"WebSocket server error: listen EADDRINUSE: address already in use :::3000","port":3000,"service":"drone-monitoring-backend","stack":"Error: listen EADDRINUSE: address already in use :::3000\n    at Server.setupListenHandle [as _listen2] (node:net:1912:16)\n    at listenInCluster (node:net:1969:12)\n    at Server.listen (node:net:2074:7)\n    at startServer (C:\\Users\\HP\\OneDrive\\Desktop\\luna-app-telemetry\\drone-monitoring-backend\\src\\server.js:92:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","syscall":"listen","timestamp":"2025-08-20 18:05:11"}
+{"level":"info","message":"Connected to MQTT broker","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:11"}
+{"level":"info","message":"Subscribed to drone data topic","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:11"}
+{"level":"info","message":"Subscribed to drone status topic","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:11"}
+{"level":"info","message":"Connected to MongoDB successfully","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:29"}
+{"level":"info","message":"Connected to MongoDB successfully","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:30"}
+{"level":"info","message":"WebSocket server initialized on /ws","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:30"}
+{"level":"info","message":"Server started on port 3000 in development mode","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:30"}
+{"level":"info","message":"WebSocket server available at ws://localhost:3000/ws","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:30"}
+{"level":"info","message":"Connected to MQTT broker","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:30"}
+{"level":"info","message":"Subscribed to drone data topic","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:30"}
+{"level":"info","message":"Subscribed to drone status topic","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:30"}
+{"level":"info","message":"WebSocket server initialized on /ws","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:30"}
+{"address":"::","code":"EADDRINUSE","errno":-4091,"level":"error","message":"WebSocket server error: listen EADDRINUSE: address already in use :::3000","port":3000,"service":"drone-monitoring-backend","stack":"Error: listen EADDRINUSE: address already in use :::3000\n    at Server.setupListenHandle [as _listen2] (node:net:1912:16)\n    at listenInCluster (node:net:1969:12)\n    at Server.listen (node:net:2074:7)\n    at startServer (C:\\Users\\HP\\OneDrive\\Desktop\\luna-app-telemetry\\drone-monitoring-backend\\src\\server.js:78:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","syscall":"listen","timestamp":"2025-08-20 18:05:30"}
+{"level":"info","message":"Connected to MQTT broker","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:30"}
+{"level":"info","message":"Subscribed to drone data topic","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:30"}
+{"level":"info","message":"Subscribed to drone status topic","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:05:31"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:10:16"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:10:46"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:11:18"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:12:17"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:12:18"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:12:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:12:47"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:12:49"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:12:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:13:17"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:13:19"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:13:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:13:47"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:13:48"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:13:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:14:17"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:14:18"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:14:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:14:47"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:14:48"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:14:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:15:17"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:15:18"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:15:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:15:47"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:15:49"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:15:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:16:17"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:16:19"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:16:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:16:47"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:16:48"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:16:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:17:17"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:17:19"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:17:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:17:47"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:17:49"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:17:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:18:17"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:18:19"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:18:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:18:47"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:18:49"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:18:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:19:17"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:19:19"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:19:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:19:46"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:19:47"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:19:51"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:19:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:20:16"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:20:17"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:20:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:20:32"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:20:37"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:20:40"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:20:46"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:20:47"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:20:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:21:07"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:21:10"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:21:10"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:21:16"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:21:17"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:21:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:21:38"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:21:40"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:21:40"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:21:46"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:21:47"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:21:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:22:08"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:22:10"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:22:10"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:22:10"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:22:16"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:22:17"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:22:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:22:38"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:22:40"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:22:40"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:22:40"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:22:46"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:22:47"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:22:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:23:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:23:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:23:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:23:16"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:23:17"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:23:20"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:23:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:23:35"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:23:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:23:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:23:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:23:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:23:46"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:23:47"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:23:50"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:23:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:24:06"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:24:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:24:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:24:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:24:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:24:16"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:24:17"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:24:20"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:24:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:24:36"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:24:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:24:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:24:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:24:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:24:46"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:24:47"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:24:50"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:24:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:25:06"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:25:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:25:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:25:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:25:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:25:16"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:25:17"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:25:20"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:25:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:25:36"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:25:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:25:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:25:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:25:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:25:46"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:25:47"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:25:50"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:25:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:26:06"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:26:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:26:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:26:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:26:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:26:16"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:26:17"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:26:20"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:26:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:26:36"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:26:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:26:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:26:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:26:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:26:46"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:26:47"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:26:50"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:26:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:27:06"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:27:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:27:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:27:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:27:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:27:16"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:27:17"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:27:20"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:27:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:27:36"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:27:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:27:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:27:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:27:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:27:46"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:27:47"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:27:50"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:27:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:28:06"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:28:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:28:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:28:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:28:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:28:16"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:28:17"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:28:20"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:28:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:28:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:28:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:28:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:28:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:28:46"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:28:47"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:28:50"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:28:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:29:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:29:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:29:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:29:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:29:16"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:29:16"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:29:18"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:29:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:29:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:29:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:29:29"}
+{"level":"info","message":"GET /api/drones","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:29:34"}
+{"level":"info","message":"GET /api/drones","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:29:34"}
+{"level":"info","message":"GET /api/drones/telemetry/data?droneId=A1&since=2025-08-20T14%3A29%3A35.872Z&limit=100","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:29:35"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:29:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:29:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:29:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:29:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:29:46"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:29:47"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:29:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:29:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:29:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:01"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:16"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:17"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:27"}
+{"level":"info","message":"WebSocket client connected: client_3uouzwzaa (1 total clients)","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:28"}
+{"level":"info","message":"GET /api/drones","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:28"}
+{"level":"info","message":"WebSocket client disconnected: client_3uouzwzaa (0 remaining)","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:28"}
+{"level":"info","message":"GET /api/drones","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:28"}
+{"level":"info","message":"GET /api/drones/telemetry/data?droneId=A1&since=2025-08-20T14%3A30%3A29.006Z&limit=100","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:29"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:41"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:46"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:47"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:30:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:31:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:31:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:31:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:31:11"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:31:16"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:31:17"}
+{"level":"info","message":"WebSocket client connected: client_9k4npfsok (1 total clients)","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:31:19"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:31:19"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:31:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:31:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:31:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:31:28"}
+{"level":"debug","message":"Received WebSocket message from client_9k4npfsok:","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:31:49","type":"ping"}
+{"level":"debug","message":"Received WebSocket message from client_9k4npfsok:","service":"drone-monitoring-backend","timestamp":"2025-08-20T15:31:56.561Z","type":"ping"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:31:58"}
+{"level":"debug","message":"Received WebSocket message from client_9k4npfsok:","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:32:19","type":"ping"}
+{"level":"debug","message":"Received WebSocket message from client_9k4npfsok:","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:32:49","type":"ping"}
+{"level":"debug","message":"Received WebSocket message from client_9k4npfsok:","service":"drone-monitoring-backend","timestamp":"2025-08-20T15:33:09.172Z","type":"ping"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:33:09"}
+{"level":"debug","message":"Received WebSocket message from client_9k4npfsok:","service":"drone-monitoring-backend","timestamp":"2025-08-20T15:33:19.341Z","type":"ping"}
+{"level":"debug","message":"Received WebSocket message from client_9k4npfsok:","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:33:19","type":"ping"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:33:35"}
+{"level":"debug","message":"Received WebSocket message from client_9k4npfsok:","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:33:49","type":"ping"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:33:52"}
+{"level":"info","message":"WebSocket client disconnected: client_9k4npfsok (0 remaining)","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:33:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:33:55"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:34:04"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:34:23"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:34:26"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:34:34"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:34:53"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:35:05"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:35:09"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:35:12"}
+{"level":"info","message":"WebSocket client connected: client_7x9buhozi (1 total clients)","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:35:14"}
+{"level":"info","message":"GET /api/drones","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:35:14"}
+{"level":"info","message":"GET /api/drones","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:35:14"}
+{"level":"info","message":"WebSocket client disconnected: client_7x9buhozi (0 remaining)","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:35:14"}
+{"level":"info","message":"GET /api/drones/telemetry/data?droneId=A1&since=2025-08-20T14%3A35%3A14.827Z&limit=100","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:35:14"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:35:23"}
+{"level":"info","message":"WebSocket client connected: client_ch2kuj8pt (1 total clients)","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:35:33"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:35:34"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:35:39"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:35:43"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:35:53"}
+{"level":"debug","message":"Received WebSocket message from client_ch2kuj8pt:","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:36:03","type":"ping"}
+{"level":"debug","message":"Received WebSocket message from client_ch2kuj8pt:","service":"drone-monitoring-backend","timestamp":"2025-08-20T15:36:03.056Z","type":"ping"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:36:04"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:36:09"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:36:13"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:36:23"}
+{"level":"debug","message":"Received WebSocket message from client_ch2kuj8pt:","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:36:33","type":"ping"}
+{"level":"debug","message":"Received WebSocket message from client_ch2kuj8pt:","service":"drone-monitoring-backend","timestamp":"2025-08-20T15:36:33.124Z","type":"ping"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:36:34"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:36:39"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:36:43"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:36:53"}
+{"level":"debug","message":"Received WebSocket message from client_ch2kuj8pt:","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:37:03","type":"ping"}
+{"level":"debug","message":"Received WebSocket message from client_ch2kuj8pt:","service":"drone-monitoring-backend","timestamp":"2025-08-20T15:37:03.048Z","type":"ping"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:37:04"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:37:09"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:37:13"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:37:23"}
+{"level":"debug","message":"Received WebSocket message from client_ch2kuj8pt:","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:37:33","type":"ping"}
+{"level":"debug","message":"Received WebSocket message from client_ch2kuj8pt:","service":"drone-monitoring-backend","timestamp":"2025-08-20T15:37:33.046Z","type":"ping"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:37:34"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:37:39"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:37:43"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:37:53"}
+{"level":"debug","message":"Received WebSocket message from client_ch2kuj8pt:","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:38:03","type":"ping"}
+{"level":"debug","message":"Received WebSocket message from client_ch2kuj8pt:","service":"drone-monitoring-backend","timestamp":"2025-08-20T15:38:03.041Z","type":"ping"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:38:04"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:38:09"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:38:13"}
+{"level":"info","message":"GET /health","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:38:23"}
+{"level":"info","message":"Shutting down server...","service":"drone-monitoring-backend","timestamp":"2025-08-20 18:38:23"}

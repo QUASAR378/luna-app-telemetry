@@ -3,7 +3,7 @@
 import React, { createContext, useContext, ReactNode, useCallback } from 'react';
 import { TelemetryData, DroneInfo } from '@/types/telemetry';
 import { useRealTimeTelemetry } from '@/hooks/useRealTimeTelemetry';
-import { mqttService } from '@/services/mqttClient';
+import { webSocketClient } from '@/services/websocketClient';
 
 interface TelemetryContextType {
   // State
@@ -11,7 +11,7 @@ interface TelemetryContextType {
   currentTelemetry: TelemetryData | null;
   historicalData: TelemetryData[];
   isConnected: boolean;
-  dataSource: 'mqtt' | 'polling' | 'fallback';
+  dataSource: 'websocket' | 'polling' | 'fallback';
   lastUpdate: Date | null;
   error: string | null;
   
@@ -20,9 +20,9 @@ interface TelemetryContextType {
   refreshData: () => Promise<void>;
   sendCommand: (droneId: string, command: string, parameters?: any) => Promise<boolean>;
   
-  // MQTT specific
-  mqttService: typeof mqttService | null;
-  isMqttEnabled: boolean;
+  // WebSocket specific
+  webSocketService: typeof webSocketClient | null;
+  isWebSocketEnabled: boolean;
   
   // Utility methods
   getDroneById: (droneId: string) => DroneInfo | undefined;
@@ -35,7 +35,7 @@ const TelemetryContext = createContext<TelemetryContextType | undefined>(undefin
 interface TelemetryProviderProps {
   children: ReactNode;
   options?: {
-    enableMQTT?: boolean;
+    enableWebSocket?: boolean;
     enablePolling?: boolean;
     pollingInterval?: number;
     autoReconnect?: boolean;
@@ -54,8 +54,8 @@ export function TelemetryProvider({ children, options = {} }: TelemetryProviderP
     selectDrone,
     refreshData,
     sendCommand,
-    mqttService: mqttServiceInstance,
-    isMqttEnabled,
+    webSocketService: webSocketServiceInstance,
+    isWebSocketEnabled,
   } = useRealTimeTelemetry(options);
 
   // Utility methods
@@ -87,9 +87,9 @@ export function TelemetryProvider({ children, options = {} }: TelemetryProviderP
     refreshData,
     sendCommand,
     
-    // MQTT specific
-    mqttService: mqttServiceInstance,
-    isMqttEnabled,
+    // WebSocket specific
+    webSocketService: webSocketServiceInstance,
+    isWebSocketEnabled,
     
     // Utility methods
     getDroneById,
@@ -123,17 +123,17 @@ export function useDroneTelemetry(droneId: string) {
   };
 }
 
-// Hook for MQTT-specific functionality
-export function useMqtt() {
-  const { mqttService, isMqttEnabled, isConnected } = useTelemetry();
+// Hook for WebSocket-specific functionality
+export function useWebSocket() {
+  const { webSocketService, isWebSocketEnabled, isConnected } = useTelemetry();
   
   return {
-    mqttService,
-    isMqttEnabled,
+    webSocketService,
+    isWebSocketEnabled,
     isConnected,
-    // MQTT utility methods
-    publishCommand: mqttService?.publishCommand.bind(mqttService),
-    subscribeToDroneData: mqttService?.subscribeToDroneData.bind(mqttService),
-    subscribeToDroneStatus: mqttService?.subscribeToDroneStatus.bind(mqttService),
+    // WebSocket utility methods
+    sendCommand: webSocketService?.sendCommand.bind(webSocketService),
+    subscribeToDrones: webSocketService?.subscribeToDrones.bind(webSocketService),
+    subscribeToTelemetry: webSocketService?.subscribeToTelemetry.bind(webSocketService),
   };
-} 
+}

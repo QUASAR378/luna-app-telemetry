@@ -164,14 +164,14 @@ class TelemetryService {
           _id: `sim_${profile.id}_${Date.now()}`,
           droneId: profile.id,
           timestamp: new Date(),
-          battery: profile.currentBattery,
+          battery: profile.battery || profile.currentBattery || 85,
           temperature: 25 + Math.random() * 10,
           humidity: 60 + Math.random() * 20,
           speed: profile.missionPhase === 'flying' ? 50 + Math.random() * 30 : 0,
           altitude: profile.missionPhase === 'flying' ? 150 + Math.random() * 50 : 0,
-          lat: profile.currentLocation.lat,
-          lng: profile.currentLocation.lng,
-          status: this.mapSimulatorStatus(profile.missionPhase),
+          lat: profile.location?.lat || profile.currentLocation?.lat || -1.2921,
+          lng: profile.location?.lng || profile.currentLocation?.lng || 36.8219,
+          status: this.mapSimulatorStatus(profile.missionPhase || profile.phase || 'idle'),
         }));
         
         console.log(`✅ Retrieved ${fallbackLogs.length} telemetry records from simulator`);

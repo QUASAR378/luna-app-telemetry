@@ -5,7 +5,7 @@ import { RealTimeTelemetry } from '@/components/telemetry/RealTimeTelemetry';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useTelemetry } from '@/contexts/TelemetryContext';
-import { useMqtt } from '@/contexts/TelemetryContext';
+import { useWebSocket } from '@/contexts/TelemetryContext';
 import { 
   Satellite, 
   Wifi, 
@@ -27,7 +27,7 @@ export default function RealTimePage() {
     error 
   } = useTelemetry();
   
-  const { isMqttEnabled, isConnected: mqttConnected } = useMqtt();
+  const { isWebSocketEnabled, isConnected: webSocketConnected, webSocketService } = useWebSocket();
 
   return (
     <div className="space-y-6">
@@ -36,7 +36,7 @@ export default function RealTimePage() {
         <div>
           <h1 className="text-3xl font-bold">Real-Time Telemetry</h1>
           <p className="text-muted-foreground">
-            Live drone monitoring via MQTT and real-time data streams
+            Live drone monitoring via WebSocket real-time communication (Backend: ws://localhost:3000/ws)
           </p>
         </div>
 
@@ -47,9 +47,9 @@ export default function RealTimePage() {
               <div className="flex items-center space-x-3">
                 <div className={`w-3 h-3 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'}`} />
                 <div>
-                  <div className="font-medium">Backend Connection</div>
+                  <div className="font-medium">Backend API</div>
                   <div className="text-sm text-muted-foreground">
-                    {isConnected ? 'Connected' : 'Disconnected'}
+                    {isConnected ? 'API Connected (Port 3000)' : 'API Disconnected'}
                   </div>
                 </div>
               </div>
@@ -59,11 +59,11 @@ export default function RealTimePage() {
           <Card className="bg-secondary/30">
             <CardContent className="p-4">
               <div className="flex items-center space-x-3">
-                <div className={`w-3 h-3 rounded-full ${mqttConnected ? 'bg-green-500' : 'bg-red-500'}`} />
+                <div className={`w-3 h-3 rounded-full ${webSocketConnected ? 'bg-green-500' : 'bg-red-500'}`} />
                 <div>
-                  <div className="font-medium">MQTT Connection</div>
+                  <div className="font-medium">WebSocket Stream</div>
                   <div className="text-sm text-muted-foreground">
-                    {mqttConnected ? 'Live Stream' : 'Offline'}
+                    {webSocketConnected ? 'Connected & Streaming' : 'Disconnected'}
                   </div>
                 </div>
               </div>
@@ -75,10 +75,10 @@ export default function RealTimePage() {
               <div className="flex items-center space-x-3">
                 <div className="w-3 h-3 rounded-full bg-blue-500" />
                 <div>
-                  <div className="font-medium">Data Source</div>
+                  <div className="font-medium">Active Data Source</div>
                   <div className="text-sm text-muted-foreground">
-                    {dataSource === 'mqtt' ? 'MQTT Stream' : 
-                     dataSource === 'polling' ? 'API Polling' : 'Simulator'}
+                    {dataSource === 'websocket' ? 'WebSocket (Real-time)' : 
+                     dataSource === 'polling' ? 'HTTP Polling (Fallback)' : 'Local Simulator'}
                   </div>
                 </div>
               </div>
@@ -97,10 +97,10 @@ export default function RealTimePage() {
           <CardContent>
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
-                {dataSource === 'mqtt' && (
+                {dataSource === 'websocket' && (
                   <Badge variant="default" className="bg-green-600">
                     <Satellite className="h-4 w-4 mr-2" />
-                    Live MQTT Data Stream
+                    WebSocket Real-time Stream Active
                   </Badge>
                 )}
                 {dataSource === 'polling' && (
@@ -125,10 +125,10 @@ export default function RealTimePage() {
               </div>
 
               <div className="flex items-center space-x-2">
-                {isMqttEnabled && (
-                  <Badge variant="outline" className={mqttConnected ? 'border-green-500 text-green-600' : 'border-red-500 text-red-600'}>
+                {isWebSocketEnabled && (
+                  <Badge variant="outline" className={webSocketConnected ? 'border-green-500 text-green-600' : 'border-red-500 text-red-600'}>
                     <Wifi className="h-4 w-4 mr-2" />
-                    MQTT {mqttConnected ? 'Enabled' : 'Disabled'}
+                    WebSocket {webSocketConnected ? 'Connected' : 'Disconnected'}
                   </Badge>
                 )}
               </div>
@@ -143,33 +143,37 @@ export default function RealTimePage() {
         showControls={true} 
       />
 
-      {/* MQTT Information */}
-      {isMqttEnabled && (
+      {/* WebSocket Information */}
+      {isWebSocketEnabled && (
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
               <Satellite className="h-5 w-5 text-primary" />
-              <span>MQTT Configuration</span>
+              <span>WebSocket Configuration</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <h4 className="font-medium mb-2">Connection Details</h4>
+                <h4 className="font-medium mb-2">WebSocket Connection</h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Status:</span>
-                    <span className={mqttConnected ? 'text-green-600' : 'text-red-600'}>
-                      {mqttConnected ? 'Connected' : 'Disconnected'}
+                    <span className={webSocketConnected ? 'text-green-600 font-medium' : 'text-red-600 font-medium'}>
+                      {webSocketConnected ? '🟢 Connected & Active' : '🔴 Disconnected'}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Broker:</span>
-                    <span className="font-mono text-xs">ws://localhost:9001</span>
+                    <span className="text-muted-foreground">Endpoint:</span>
+                    <span className="font-mono text-xs">ws://localhost:3000/ws</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Topics:</span>
-                    <span className="font-mono text-xs">drones/+/data, drones/+/status</span>
+                    <span className="text-muted-foreground">Protocol:</span>
+                    <span className="font-mono text-xs">WebSocket (replaces MQTT)</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Backend API:</span>
+                    <span className="font-mono text-xs">http://localhost:3000/api</span>
                   </div>
                 </div>
               </div>

@@ -67,14 +67,14 @@ export default function DashboardPage() {
       return (
         <div className="flex items-center space-x-2 text-sm text-green-600">
           <Server className="h-4 w-4" />
-          <span>Backend Connected</span>
+          <span>WebSocket Connected</span>
         </div>
       );
     } else {
       return (
         <div className="flex items-center space-x-2 text-sm text-amber-600">
           <AlertTriangle className="h-4 w-4" />
-          <span>Using Simulator</span>
+          <span>WebSocket Disconnected - Using Fallback</span>
         </div>
       );
     }
@@ -82,11 +82,11 @@ export default function DashboardPage() {
 
   const getDataSourceIndicator = () => {
     switch (dataSource) {
-      case 'mqtt':
+      case 'websocket':
         return (
           <div className="flex items-center space-x-2 text-sm text-green-600">
             <Database className="h-4 w-4" />
-            <span>Live MQTT Data</span>
+            <span>Live WebSocket Data</span>
           </div>
         );
       case 'polling':
@@ -140,13 +140,13 @@ export default function DashboardPage() {
           <h1 className="text-3xl font-bold">Operations Dashboard</h1>
           <div className="flex items-center space-x-4 mt-2">
             <p className="text-muted-foreground">
-              Real-time drone fleet monitoring and control
+              Real-time drone fleet monitoring via WebSocket communication
             </p>
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 rounded-full bg-green-400"></div>
               {hasMounted && lastUpdate && (
                 <span className="text-xs text-muted-foreground">
-                  Last update: {lastUpdate.toLocaleTimeString()}
+                  Last WebSocket update: {lastUpdate.toLocaleTimeString()}
                 </span>
               )}
             </div>

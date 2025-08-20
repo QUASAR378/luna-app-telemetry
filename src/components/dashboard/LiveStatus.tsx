@@ -64,7 +64,7 @@ export function LiveStatus() {
 
           <div className="flex items-center space-x-2 text-muted-foreground">
             <Wifi className="h-4 w-4" />
-            <span className="text-sm">No MQTT required</span>
+            <span className="text-sm">WebSocket Connected</span>
           </div>
         </div>
       </CardContent>

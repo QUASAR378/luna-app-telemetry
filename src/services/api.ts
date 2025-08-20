@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Backend configuration
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:3001/api"; // Updated to port 3001
+const API_BASE = (process.env.NEXT_PUBLIC_API_BASE || "http://localhost:3000") + "/api";
 const BACKEND_TIMEOUT = 10000; // 10 seconds
 
 // Create axios instance with default config
@@ -34,7 +34,8 @@ apiClient.interceptors.response.use(
 // Health check to verify backend connectivity
 export const checkBackendHealth = async (): Promise<boolean> => {
   try {
-    const response = await apiClient.get('/health');
+    // Health endpoint is at root level, not under /api
+    const response = await axios.get('http://localhost:3000/health', { timeout: BACKEND_TIMEOUT });
     return response.status === 200;
   } catch (error) {
     console.warn('Backend health check failed:', error);

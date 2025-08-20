@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { TelemetryData, DroneInfo } from '@/types/telemetry';
-import { mqttService, MqttDroneData, MqttDroneStatus } from '@/services/mqttClient';
+import { webSocketClient, WebSocketCallbacks } from '@/services/websocketClient';
 import { telemetryService } from '@/services/telemetryService';
 
 interface UseRealTimeTelemetryOptions {
-  enableMQTT?: boolean;
+  enableWebSocket?: boolean;
   enablePolling?: boolean;
   pollingInterval?: number;
   autoReconnect?: boolean;
@@ -15,14 +15,14 @@ interface RealTimeTelemetryState {
   currentTelemetry: TelemetryData | null;
   historicalData: TelemetryData[];
   isConnected: boolean;
-  dataSource: 'mqtt' | 'polling' | 'fallback';
+  dataSource: 'websocket' | 'polling' | 'fallback';
   lastUpdate: Date | null;
   error: string | null;
 }
 
 export function useRealTimeTelemetry(options: UseRealTimeTelemetryOptions = {}) {
   const {
-    enableMQTT = true,
+    enableWebSocket = true,
     enablePolling = true,
     pollingInterval = 15000,
     autoReconnect = true,
@@ -195,100 +195,105 @@ export function useRealTimeTelemetry(options: UseRealTimeTelemetryOptions = {}) 
     }
   }, []);
 
-  // MQTT message handlers
-  const handleDroneData = useCallback((mqttData: MqttDroneData) => {
-    console.log('📡 Received MQTT drone data:', mqttData);
-    
-    // Transform MQTT data to TelemetryData format
-    const telemetryData: TelemetryData = {
-      _id: `mqtt_${mqttData.droneId}_${Date.now()}`,
-      droneId: mqttData.droneId,
-      timestamp: new Date(mqttData.timestamp),
-      battery: mqttData.battery,
-      temperature: mqttData.temperature,
-      humidity: mqttData.humidity,
-      speed: mqttData.speed,
-      altitude: mqttData.altitude,
-      lat: mqttData.latitude,
-      lng: mqttData.longitude,
-      status: mqttData.status as TelemetryData['status'],
-    };
+  // WebSocket message handlers
+  const handleDronesUpdate = useCallback((drones: DroneInfo[]) => {
+    console.log('📡 Received WebSocket drones update:', drones.length, 'drones');
+    setState(prev => ({
+      ...prev,
+      drones,
+      lastUpdate: new Date(),
+      dataSource: 'websocket',
+      isConnected: true,
+    }));
+  }, []);
 
+  const handleTelemetryUpdate = useCallback((telemetryData: { logs: TelemetryData[]; total: number; droneId: string }) => {
+    console.log('📡 Received WebSocket telemetry update:', telemetryData.logs.length, 'records');
+    setState(prev => ({
+      ...prev,
+      currentTelemetry: telemetryData.logs[0] || null,
+      historicalData: telemetryData.logs,
+      lastUpdate: new Date(),
+      dataSource: 'websocket',
+      isConnected: true,
+    }));
+  }, []);
+
+  const handleTelemetryRealtime = useCallback((telemetryData: TelemetryData) => {
+    console.log('📡 Received WebSocket real-time telemetry:', telemetryData.droneId);
     setState(prev => ({
       ...prev,
       currentTelemetry: telemetryData,
       historicalData: [telemetryData, ...prev.historicalData.slice(0, 99)], // Keep last 100 records
       lastUpdate: new Date(),
-      dataSource: 'mqtt',
+      dataSource: 'websocket',
       isConnected: true,
     }));
   }, []);
 
-  const handleDroneStatus = useCallback((mqttStatus: MqttDroneStatus) => {
-    console.log('📡 Received MQTT drone status:', mqttStatus);
+  const handleDroneStatusUpdate = useCallback((drone: DroneInfo) => {
+    console.log('📡 Received WebSocket drone status update:', drone.id);
     
     // Update drone in the list
     setState(prev => ({
       ...prev,
-      drones: prev.drones.map(drone => 
-        drone.id === mqttStatus.droneId 
-          ? {
-              ...drone,
-              status: mqttStatus.status,
-              isOnline: mqttStatus.isOnline,
-              battery: mqttStatus.lastTelemetry?.battery,
-              lastSeen: new Date(mqttStatus.lastSeen),
-            }
-          : drone
+      drones: prev.drones.map(existingDrone => 
+        existingDrone.id === drone.id ? drone : existingDrone
       ),
       lastUpdate: new Date(),
-      dataSource: 'mqtt',
+      dataSource: 'websocket',
       isConnected: true,
     }));
   }, []);
 
   const handleConnectionChange = useCallback((connected: boolean) => {
-    console.log('🔌 MQTT connection changed:', connected);
+    console.log('🔌 WebSocket connection changed:', connected);
     setState(prev => ({ 
       ...prev, 
       isConnected: connected,
-      dataSource: connected ? 'mqtt' : (telemetryService.isBackendAvailable() ? 'polling' : 'fallback')
+      dataSource: connected ? 'websocket' : (telemetryService.isBackendAvailable() ? 'polling' : 'fallback')
     }));
   }, []);
 
-  const handleMqttError = useCallback((error: Error) => {
-    console.error('❌ MQTT error:', error);
+  const handleWebSocketError = useCallback((error: Error) => {
+    console.error('❌ WebSocket error:', error);
     setState(prev => ({ 
       ...prev, 
-      error: `MQTT Error: ${error.message}`,
+      error: `WebSocket Error: ${error.message}`,
       dataSource: telemetryService.isBackendAvailable() ? 'polling' : 'fallback'
     }));
   }, []);
 
-  // Initialize MQTT if enabled
+  // Initialize WebSocket if enabled
   useEffect(() => {
-    if (enableMQTT && !isInitializedRef.current) {
+    if (enableWebSocket && !isInitializedRef.current) {
       isInitializedRef.current = true;
       
-      // Set up MQTT callbacks
-      mqttService.setCallbacks({
-        onDroneData: handleDroneData,
-        onDroneStatus: handleDroneStatus,
+      // Set up WebSocket callbacks
+      const callbacks: WebSocketCallbacks = {
+        onDronesUpdate: handleDronesUpdate,
+        onTelemetryUpdate: handleTelemetryUpdate,
+        onTelemetryRealtime: handleTelemetryRealtime,
+        onDroneStatusUpdate: handleDroneStatusUpdate,
         onConnectionChange: handleConnectionChange,
-        onError: handleMqttError,
-      });
+        onError: handleWebSocketError,
+      };
+      
+      webSocketClient.setCallbacks(callbacks);
 
-      // Connect to MQTT broker
-      mqttService.connect().then((connected) => {
+      // Connect to WebSocket server
+      webSocketClient.connect().then((connected) => {
         if (connected) {
-          console.log('✅ MQTT connected successfully');
+          console.log('✅ WebSocket connected successfully');
+          // Subscribe to initial data
+          webSocketClient.subscribeToDrones();
           setState(prev => ({ 
             ...prev, 
             isConnected: true,
-            dataSource: 'mqtt'
+            dataSource: 'websocket'
           }));
         } else {
-          console.warn('⚠️ MQTT connection failed, falling back to polling');
+          console.warn('⚠️ WebSocket connection failed, falling back to polling');
           setState(prev => ({ 
             ...prev, 
             dataSource: telemetryService.isBackendAvailable() ? 'polling' : 'fallback'
@@ -298,14 +303,16 @@ export function useRealTimeTelemetry(options: UseRealTimeTelemetryOptions = {}) 
     }
 
     return () => {
-      if (enableMQTT) {
-        mqttService.removeCallback('onDroneData');
-        mqttService.removeCallback('onDroneStatus');
-        mqttService.removeCallback('onConnectionChange');
-        mqttService.removeCallback('onError');
+      if (enableWebSocket) {
+        webSocketClient.removeCallback('onDronesUpdate');
+        webSocketClient.removeCallback('onTelemetryUpdate');
+        webSocketClient.removeCallback('onTelemetryRealtime');
+        webSocketClient.removeCallback('onDroneStatusUpdate');
+        webSocketClient.removeCallback('onConnectionChange');
+        webSocketClient.removeCallback('onError');
       }
     };
-  }, [enableMQTT, handleDroneData, handleDroneStatus, handleConnectionChange, handleMqttError]);
+  }, [enableWebSocket, handleDronesUpdate, handleTelemetryUpdate, handleTelemetryRealtime, handleDroneStatusUpdate, handleConnectionChange, handleWebSocketError]);
 
   // Initialize data and start polling
   useEffect(() => {
@@ -327,19 +334,22 @@ export function useRealTimeTelemetry(options: UseRealTimeTelemetryOptions = {}) 
   useEffect(() => {
     return () => {
       stopPolling();
-      if (enableMQTT) {
-        mqttService.destroy();
+      if (enableWebSocket) {
+        webSocketClient.destroy();
       }
     };
-  }, [enableMQTT, stopPolling]);
+  }, [enableWebSocket, stopPolling]);
 
   // Public methods
   const selectDrone = useCallback((droneId: string) => {
     selectedDroneRef.current = droneId;
-    if (state.dataSource === 'polling') {
+    if (state.dataSource === 'websocket') {
+      // Subscribe to telemetry for the selected drone
+      webSocketClient.subscribeToTelemetry(droneId);
+    } else if (state.dataSource === 'polling') {
       fetchTelemetryData(droneId);
     }
-  }, [fetchTelemetryData]);
+  }, [state.dataSource, fetchTelemetryData]);
 
   const refreshData = useCallback(async () => {
     await initializeData();
@@ -350,11 +360,11 @@ export function useRealTimeTelemetry(options: UseRealTimeTelemetryOptions = {}) 
 
   const sendCommand = useCallback(async (droneId: string, command: string, parameters?: any) => {
     try {
-      if (state.isConnected && enableMQTT) {
-        // Send via MQTT if connected
-        const success = mqttService.publishCommand(droneId, command, parameters);
+      if (state.isConnected && enableWebSocket) {
+        // Send via WebSocket if connected
+        const success = webSocketClient.sendCommand(droneId, command, parameters);
         if (success) {
-          console.log(`✅ Command sent via MQTT: ${command} to ${droneId}`);
+          console.log(`✅ Command sent via WebSocket: ${command} to ${droneId}`);
           return true;
         }
       }
@@ -371,16 +381,16 @@ export function useRealTimeTelemetry(options: UseRealTimeTelemetryOptions = {}) 
       console.error('Failed to send command:', error);
       return false;
     }
-  }, [state.isConnected, enableMQTT]);
+  }, [state.isConnected, enableWebSocket]);
 
   return {
     ...state,
     selectDrone,
     refreshData,
     sendCommand,
-    // MQTT specific methods
-    mqttService: enableMQTT ? mqttService : null,
-    isMqttEnabled: enableMQTT,
+    // WebSocket specific methods
+    webSocketService: enableWebSocket ? webSocketClient : null,
+    isWebSocketEnabled: enableWebSocket,
   };
 }
 

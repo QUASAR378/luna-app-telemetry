@@ -121,6 +121,10 @@ class MqttService {
 
       await telemetryData.save();
 
+      // Broadcast real-time update to WebSocket clients
+      const webSocketService = require('./websocketService');
+      webSocketService.broadcastTelemetryUpdate(telemetryData);
+
       // Update drone with latest telemetry data
       const drone = await Drone.findOne({ droneId });
       if (drone) {
@@ -139,6 +143,9 @@ class MqttService {
         drone.status = normalizedStatus;
         drone.updateOnlineStatus();
         await drone.save();
+        
+        // Broadcast drone status update to WebSocket clients
+        webSocketService.broadcastDroneStatusUpdate(drone);
       }
     } catch (error) {
       logger.error(`Error processing telemetry data for drone ${droneId}:`, error);
@@ -171,6 +178,10 @@ class MqttService {
       }
 
       await drone.save();
+      
+      // Broadcast drone status update to WebSocket clients
+      const webSocketService = require('./websocketService');
+      webSocketService.broadcastDroneStatusUpdate(drone);
     } catch (error) {
       logger.error(`Error processing status for drone ${droneId}:`, error);
     }

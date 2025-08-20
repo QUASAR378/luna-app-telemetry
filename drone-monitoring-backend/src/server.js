@@ -1,9 +1,11 @@
 const express = require('express');
 const cors = require('cors');
+const http = require('http');
 const config = require('./config');
 const logger = require('./utils/logger');
 const connectDatabase = require('./utils/database');
 const mqttService = require('./services/mqttService');
+const webSocketService = require('./services/websocketService');
 const droneRoutes = require('./routes/droneRoutes');
 const mongoose = require('mongoose');
 
@@ -25,13 +27,14 @@ app.use('/api/drones', droneRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-  res.status(200).json({
-    status: 'OK',
-    timestamp: new Date(),
-    mqtt: mqttService.isConnected ? 'connected' : 'disconnected',
-    db: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
-    version: '1.0.0',
-    environment: config.server.env,
+  res.json({
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    services: {
+      database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+      mqtt: mqttService.isConnected ? 'connected' : 'disconnected',
+      websocket: webSocketService.getStatus(),
+    },
     uptime: process.uptime(),
   });
 });
@@ -62,22 +65,34 @@ const startServer = async () => {
     // Connect to MongoDB
     await connectDatabase();
     
-    // Connect to MQTT broker
+    // Connect to MQTT broker (for ESP32 communication)
     mqttService.connect();
     
-    // Start Express server
-    const server = app.listen(config.server.port, () => {
+    // Create HTTP server
+    const server = http.createServer(app);
+    
+    // Initialize WebSocket service (for frontend communication)
+    webSocketService.initialize(server);
+    
+    // Start HTTP server
+    server.listen(config.server.port, () => {
       logger.info(`Server started on port ${config.server.port} in ${config.server.env} mode`);
+      logger.info(`WebSocket server available at ws://localhost:${config.server.port}/ws`);
     });
     
     // Handle graceful shutdown
     const shutdown = async () => {
       logger.info('Shutting down server...');
       
+      // Shutdown WebSocket service
+      webSocketService.shutdown();
+      
+      // Close HTTP server
       server.close(() => {
-        logger.info('Express server closed');
+        logger.info('HTTP server closed');
       });
       
+      // Disconnect MQTT
       mqttService.disconnect();
       
       process.exit(0);

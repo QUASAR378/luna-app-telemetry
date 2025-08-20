@@ -17,8 +17,8 @@ import {
   Wifi
 } from 'lucide-react';
 
-// Import the telemetry service
-import { telemetryService } from '@/services/telemetryService';
+// Import the telemetry context
+import { useTelemetry } from '@/contexts/TelemetryContext';
 
 interface DroneControlState {
   droneId: string;
@@ -48,6 +48,9 @@ export function QuickControl() {
   const [feedback, setFeedback] = useState<string>('');
   const [droneStates, setDroneStates] = useState<DroneControlState[]>([]);
   const [backendStatus, setBackendStatus] = useState<'connected' | 'disconnected' | 'checking'>('checking');
+  
+  // Use telemetry context
+  const { drones, isConnected, sendCommand } = useTelemetry();
 
   // Keyboard shortcut to toggle admin panel (Ctrl+Shift+A)
   useEffect(() => {
@@ -76,15 +79,12 @@ export function QuickControl() {
 
   // Check backend connectivity status
   const checkBackendStatus = () => {
-    const isBackendAvailable = telemetryService.isBackendAvailable();
-    setBackendStatus(isBackendAvailable ? 'connected' : 'disconnected');
+    setBackendStatus(isConnected ? 'connected' : 'disconnected');
   };
 
   const fetchDroneStates = async () => {
     try {
-      // Try to get drones from the telemetry service first
-      const drones = await telemetryService.getDrones();
-      
+      // Try to get drones from the telemetry context first
       if (drones.length > 0) {
         const states: DroneControlState[] = drones.map(drone => ({
           droneId: drone.id,
@@ -96,7 +96,7 @@ export function QuickControl() {
         return;
       }
     } catch (error) {
-      console.warn('Failed to fetch drones from telemetry service:', error);
+      console.warn('Failed to fetch drones from telemetry context:', error);
     }
 
     // Fallback: Try the old API endpoint
@@ -125,19 +125,19 @@ export function QuickControl() {
     setFeedback('');
 
     try {
-      // Try to send command via backend if available
-      if (telemetryService.isBackendAvailable()) {
+      // Try to send command via WebSocket if available
+      if (isConnected) {
         try {
-          // Use the telemetry service to send commands
-          await telemetryService.sendCommand(droneId, 'status_update', {
+          // Use the telemetry context to send commands
+          await sendCommand(droneId, 'status_update', {
             status,
             battery: options.battery,
             isOnline: options.isOnline,
           });
           
-          setFeedback(`✅ Command sent to backend for drone ${droneId}`);
+          setFeedback(`✅ Command sent via WebSocket for drone ${droneId}`);
         } catch (backendError) {
-          console.warn('Backend command failed, using local state:', backendError);
+          console.warn('WebSocket command failed, using local state:', backendError);
           // Fall through to local state update
         }
       }
@@ -268,7 +268,7 @@ export function QuickControl() {
               {getBackendStatusIndicator()}
               <span className="text-xs text-muted-foreground">
                 {backendStatus === 'connected' 
-                  ? 'Commands will be sent to backend' 
+                  ? 'Commands will be sent via WebSocket' 
                   : 'Commands will update local state only'}
               </span>
             </div>
@@ -380,7 +380,7 @@ export function QuickControl() {
             <p>• Changes are reflected instantly on the dashboard</p>
             <p className="mt-2 text-amber-600">
               {backendStatus === 'connected' 
-                ? '✅ Commands will be sent to backend when available' 
+                ? '✅ Commands will be sent via WebSocket when available' 
                 : '⚠️ Commands will update local state only'}
             </p>
           </div>

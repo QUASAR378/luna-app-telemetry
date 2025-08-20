@@ -26,7 +26,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <TelemetryProvider 
           options={{
-            enableMQTT: true,
+            enableWebSocket: true,
             enablePolling: true,
             pollingInterval: 15000,
             autoReconnect: true,

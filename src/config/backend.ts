@@ -2,7 +2,7 @@
 export const BACKEND_CONFIG = {
   // Backend server settings
   server: {
-    baseUrl: process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:3001', // Updated to port 3001
+    baseUrl: process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:3000',
     apiPath: '/api',
     healthEndpoint: '/health',
     timeout: 10000, // 10 seconds
@@ -22,7 +22,7 @@ export const BACKEND_CONFIG = {
   // Feature flags
   features: {
     enableBackend: process.env.NEXT_PUBLIC_ENABLE_BACKEND !== 'false',
-    enableMQTT: process.env.NEXT_PUBLIC_ENABLE_MQTT === 'true',
+    enableWebSocket: process.env.NEXT_PUBLIC_ENABLE_WEBSOCKET !== 'false',
     enableSimulator: process.env.NEXT_PUBLIC_ENABLE_SIMULATOR !== 'false',
     enableFallbacks: process.env.NEXT_PUBLIC_ENABLE_FALLBACKS !== 'false',
   },
@@ -59,6 +59,11 @@ export const isBackendEnabled = (): boolean => {
   return BACKEND_CONFIG.features.enableBackend;
 };
 
+// Helper function to check if WebSocket is enabled
+export const isWebSocketEnabled = (): boolean => {
+  return BACKEND_CONFIG.features.enableWebSocket;
+};
+
 // Helper function to check if simulator is enabled
 export const isSimulatorEnabled = (): boolean => {
   return BACKEND_CONFIG.features.enableSimulator;
@@ -67,4 +72,4 @@ export const isSimulatorEnabled = (): boolean => {
 // Helper function to check if fallbacks are enabled
 export const areFallbacksEnabled = (): boolean => {
   return BACKEND_CONFIG.features.enableFallbacks;
-}; 
+};
